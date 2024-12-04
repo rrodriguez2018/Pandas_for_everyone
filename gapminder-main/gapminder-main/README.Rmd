@@ -1,0 +1,61 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+## so jittered figs don't always appear to be changed
+set.seed(1)
+```
+
+# gapminder
+
+<!-- badges: start -->
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.594018.svg)](https://doi.org/10.5281/zenodo.594018)
+[![CRAN status](https://www.r-pkg.org/badges/version/gapminder)](https://CRAN.R-project.org/package=gapminder)
+![](http://cranlogs.r-pkg.org/badges/grand-total/gapminder)
+[![R-CMD-check](https://github.com/jennybc/gapminder/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jennybc/gapminder/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
+This repo is a data package with an excerpt from the [Gapminder](https://www.gapminder.org/data/) data.
+The main object in this package is the `gapminder` data frame or "tibble".
+There are other goodies, such as the data in tab delimited form, a larger unfiltered dataset, premade color schemes for the countries and continents, and ISO 3166-1 country codes.
+The primary use case is for teaching and writing examples.
+
+## Installation
+
+Install `gapminder` from CRAN:
+
+```{r eval = FALSE}
+install.packages("gapminder")
+```
+
+## Quick look
+
+Here we do a bit of data aggregation and plotting with the `gapminder` data:
+
+```{r test-drive, message = FALSE, warning = FALSE, out.width = "60%"}
+library(gapminder)
+library(dplyr)
+library(ggplot2)
+
+aggregate(lifeExp ~ continent, gapminder, median)
+
+gapminder %>%
+  filter(year == 2007) %>%
+  group_by(continent) %>%
+  summarise(lifeExp = median(lifeExp))
+
+ggplot(gapminder, aes(x = continent, y = lifeExp)) +
+  geom_boxplot(outlier.colour = "hotpink") +
+  geom_jitter(position = position_jitter(width = 0.1, height = 0), alpha = 1 / 4)
+```
+
+For more, see the [Get started](https://jennybc.github.io/gapminder/articles/gapminder.html) vignette.
