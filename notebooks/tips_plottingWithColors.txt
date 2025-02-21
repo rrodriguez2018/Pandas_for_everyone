@@ -1,0 +1,11 @@
+# Plot graph
+
+ypoint = 290 # Y axis coordinate of point of interest
+xpoint = 85 # X axis coordinate of point of interest
+
+plot_fig = uutDF.plot(x='Hours', y=uut_column_names[1:], title="UUT Glass Impedance",
+                      xlabel='Hours', ylabel='Megaohms', figsize=(9,6))
+plot_fig.axhline(y=ypoint, xmin=1, xmax=0, color='orange', linestyle='-.' )
+plot_fig.axvline(x=xpoint, ymin=1, ymax=0, color='orange', linestyle='-.')
+plot_fig.grid(True, linestyle='--', color='lightgray')
+plot_fig.legend(bbox_to_anchor=(1.05, 1), loc='upper left', title="UUT SN", title_fontproperties={'weight':'bold'})
